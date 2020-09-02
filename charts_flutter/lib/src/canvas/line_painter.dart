@@ -14,7 +14,7 @@
 // limitations under the License.
 
 import 'dart:ui' as ui show Shader;
-import 'dart:math' show Point, Rectangle;
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:charts_common/common.dart' as common show Color;
 
@@ -96,11 +96,43 @@ class LinePainter {
     // appropriate underlying data structures to avoid conversion.
     final path = new Path()
       ..moveTo(points.first.x.toDouble(), points.first.y.toDouble());
+    final insideGradientPath = new Path()
+      ..moveTo(points.first.x.toDouble(), points.first.y.toDouble());
 
     for (var point in points) {
       path.lineTo(point.x.toDouble(), point.y.toDouble());
+      insideGradientPath.lineTo(point.x.toDouble(), point.y.toDouble());
     }
 
+    insideGradientPath.lineTo(points.last.x.toDouble(), points.map((point) => point.y).reduce(max).toDouble());
+    insideGradientPath.lineTo(points.first.x, points.map((point) => point.y).reduce(max).toDouble());
+
+    final Gradient gradient = new LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: <Color>[
+        Colors.white.withOpacity(0.125),
+        Colors.white.withOpacity(0.1),
+        Colors.white.withOpacity(0.075),
+        Colors.white.withOpacity(0.05),
+        Colors.transparent,
+      ],
+      stops: [
+        0.5,
+        0.75,
+        0.8,
+        0.99,
+        1.0,
+      ],
+    );
+
+    var rect = Rect.fromPoints(Offset(0, 0), Offset(points.map((point) => point.x).reduce(max).toDouble(), points.map((point) => point.y).reduce(max).toDouble()));
+
+    var gradientPaint = Paint()
+      ..style = PaintingStyle.fill
+      ..shader = gradient.createShader(rect);
+
+    canvas.drawPath(insideGradientPath, gradientPaint);
     canvas.drawPath(path, paint);
   }
 
