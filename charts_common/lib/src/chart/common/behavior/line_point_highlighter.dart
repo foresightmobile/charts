@@ -20,6 +20,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../common.dart';
 import '../../../../common.dart';
+import '../../../../common.dart';
 import '../../../common/color.dart' show Color;
 import '../../../common/graphics_factory.dart' show GraphicsFactory;
 import '../../../common/style/style_factory.dart' show StyleFactory;
@@ -487,7 +488,9 @@ class _LinePointLayoutView<D> extends LayoutView {
           shouldShowVerticalFollowLine = false;
         }
 
-        var textStyle = graphicsFactory.createTextPaint()..fontSize = 50;
+        var textStyle = graphicsFactory.createTextPaint()
+          ..fontSize = 50
+          ..color = MaterialPalette.blue.shadeDefault;
         canvas.drawText(graphicsFactory.createTextElement("Hello")..textStyle = textStyle, pointElement.point.x.floor(), topBound);
 
 //        canvas.drawRRect(
