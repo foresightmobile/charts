@@ -522,10 +522,10 @@ class _LinePointLayoutView<D> extends LayoutView {
 //        roundTopLeft: true,
 //        roundTopRight: true,
 //      );
-
     }
-    var textStyle = graphicsFactory.createTextPaint()..fontSize = 50;
-    canvas.drawText(graphicsFactory.createTextElement("Hello")..textStyle = textStyle, 10, 10);
+
+//    var textStyle = graphicsFactory.createTextPaint()..fontSize = 50;
+//    canvas.drawText(graphicsFactory.createTextElement("Hello")..textStyle = textStyle, 10, 10);
   }
 
   void drawBubbleWithText(ChartCanvas canvas) {
