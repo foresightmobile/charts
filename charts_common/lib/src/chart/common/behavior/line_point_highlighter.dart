@@ -23,6 +23,7 @@ import '../../../../common.dart';
 import '../../../../common.dart';
 import '../../../common/color.dart' show Color;
 import '../../../common/graphics_factory.dart' show GraphicsFactory;
+import '../../../common/material_palette.dart';
 import '../../../common/style/style_factory.dart' show StyleFactory;
 import '../../../common/symbol_renderer.dart'
     show CircleSymbolRenderer, SymbolRenderer;
@@ -31,11 +32,11 @@ import '../../cartesian/axis/axis.dart'
 import '../../cartesian/cartesian_chart.dart' show CartesianChart;
 import '../../layout/layout_view.dart'
     show
-        LayoutPosition,
-        LayoutView,
-        LayoutViewConfig,
-        LayoutViewPaintOrder,
-        ViewMeasuredSizes;
+    LayoutPosition,
+    LayoutView,
+    LayoutViewConfig,
+    LayoutViewPaintOrder,
+    ViewMeasuredSizes;
 import '../base_chart.dart' show BaseChart, LifecycleListener;
 import '../chart_canvas.dart' show ChartCanvas, getAnimatedColor;
 import '../datum_details.dart' show DatumDetails;
@@ -120,13 +121,13 @@ class LinePointHighlighter<D> implements ChartBehavior<D> {
 
   LinePointHighlighter(
       {SelectionModelType selectionModelType,
-      double defaultRadiusPx,
-      double radiusPaddingPx,
-      LinePointHighlighterFollowLineType showHorizontalFollowLine,
-      LinePointHighlighterFollowLineType showVerticalFollowLine,
-      List<int> dashPattern,
-      bool drawFollowLinesAcrossChart,
-      SymbolRenderer symbolRenderer})
+        double defaultRadiusPx,
+        double radiusPaddingPx,
+        LinePointHighlighterFollowLineType showHorizontalFollowLine,
+        LinePointHighlighterFollowLineType showVerticalFollowLine,
+        List<int> dashPattern,
+        bool drawFollowLinesAcrossChart,
+        SymbolRenderer symbolRenderer})
       : selectionModelType = selectionModelType ?? SelectionModelType.info,
         defaultRadiusPx = defaultRadiusPx ?? 4.0,
         radiusPaddingPx = radiusPaddingPx ?? 2.0,
@@ -184,7 +185,7 @@ class LinePointHighlighter<D> implements ChartBehavior<D> {
     _currentKeys.clear();
 
     final selectedDatumDetails =
-        _chart.getSelectedDatumDetails(selectionModelType);
+    _chart.getSelectedDatumDetails(selectionModelType);
 
     // Create a new map each time to ensure that we have it sorted in the
     // selection model order. This preserves the "nearestDetail" ordering, so
@@ -313,9 +314,9 @@ class _LinePointLayoutView<D> extends LayoutView {
     this.dashPattern,
     this.drawFollowLinesAcrossChart,
   }) : layoutConfig = LayoutViewConfig(
-            paintOrder: LayoutViewPaintOrder.linePointHighlighter,
-            position: LayoutPosition.DrawArea,
-            positionOrder: layoutPaintOrder);
+      paintOrder: LayoutViewPaintOrder.linePointHighlighter,
+      position: LayoutPosition.DrawArea,
+      positionOrder: layoutPaintOrder);
 
   set seriesPointMap(LinkedHashMap<String, _AnimatedPoint<D>> value) {
     _seriesPointMap = value;
@@ -407,11 +408,11 @@ class _LinePointLayoutView<D> extends LayoutView {
     }
 
     var shouldShowHorizontalFollowLine = showHorizontalFollowLine ==
-            LinePointHighlighterFollowLineType.all ||
+        LinePointHighlighterFollowLineType.all ||
         showHorizontalFollowLine == LinePointHighlighterFollowLineType.nearest;
 
     var shouldShowVerticalFollowLine = showVerticalFollowLine ==
-            LinePointHighlighterFollowLineType.all ||
+        LinePointHighlighterFollowLineType.all ||
         showVerticalFollowLine == LinePointHighlighterFollowLineType.nearest;
 
     // Keep track of points for which we've already drawn lines.
@@ -488,10 +489,25 @@ class _LinePointLayoutView<D> extends LayoutView {
           shouldShowVerticalFollowLine = false;
         }
 
+        double rectangleHeight = 60;
+        double rectangleWidth = 100;
+
+
+        canvas.drawRRect(
+          Rectangle(
+            pointElement.point.x - rectangleWidth / 2,
+            pointElement.point.y + rectangleHeight,
+            rectangleWidth,
+            rectangleHeight,
+          ),
+          radius: 5,
+          patternColor: MaterialPalette.white,
+        );
+
         var textStyle = graphicsFactory.createTextPaint()
           ..fontSize = 50
           ..color = MaterialPalette.blue.shadeDefault;
-        canvas.drawText(graphicsFactory.createTextElement("Hello")..textStyle = textStyle, pointElement.point.x.floor(), topBound);
+        canvas.drawText(graphicsFactory.createTextElement(pointElement.point.domain.toString())..textStyle = textStyle, pointElement.point.x.floor(), pointElement.point.y.floor());
 
 //        canvas.drawRRect(
 //          bounds,
@@ -597,7 +613,7 @@ class _PointRendererElement<D> {
 
     if (target.strokeWidthPx != null && previous.strokeWidthPx != null) {
       strokeWidthPx = (((target.strokeWidthPx - previous.strokeWidthPx) *
-              animationPercent) +
+          animationPercent) +
           previous.strokeWidthPx);
     } else {
       strokeWidthPx = null;
