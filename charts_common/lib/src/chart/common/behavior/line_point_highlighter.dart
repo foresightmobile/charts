@@ -16,6 +16,7 @@
 import 'dart:collection' show LinkedHashMap;
 import 'dart:math' show max, min, Point, Rectangle;
 
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../common.dart';
@@ -494,11 +495,13 @@ class _LinePointLayoutView<D> extends LayoutView {
         double rectangleHeight = 60;
         double rectangleWidth = 100;
 
+        double rectangleLeft = pointElement.point.x - rectangleWidth / 2;
+        double rectangleTop = pointElement.point.y - rectangleHeight / 2;
 
         canvas.drawRRect(
           Rectangle(
-            pointElement.point.x - rectangleWidth / 2,
-            pointElement.point.y + rectangleHeight,
+            rectangleLeft,
+            rectangleTop,
             rectangleWidth,
             rectangleHeight,
           ),
@@ -512,19 +515,17 @@ class _LinePointLayoutView<D> extends LayoutView {
           stroke: MaterialPalette.white,
         );
 
-        var textStyle = graphicsFactory.createTextPaint()
-          ..fontSize = 50
-          ..color = MaterialPalette.blue.shadeDefault;
-        canvas.drawText(graphicsFactory.createTextElement(pointElement.point.domain.toString())..textStyle = textStyle, pointElement.point.x.floor(), pointElement.point.y.floor());
+        var latoBlack12 = graphicsFactory.createTextPaint()
+          ..fontSize = 12
+          ..color = Color.fromHex(code: "FF333E48")
+          ..fontFamily = 'Lato';
+        canvas.drawText(graphicsFactory.createTextElement(DateFormat(DateFormat.HOUR24_MINUTE_SECOND).format(pointElement.point.domain as DateTime))..textStyle = latoBlack12, (rectangleLeft + 10).floor(), (rectangleTop + 10).floor());
 
-//        canvas.drawRRect(
-//          bounds,
-//        radius: 5,
-//        roundBottomLeft: true,
-//        roundBottomRight: true,
-//        roundTopLeft: true,
-//        roundTopRight: true,
-//      );
+        var latoBlack14 = graphicsFactory.createTextPaint()
+          ..fontSize = 14
+          ..color = Color.fromHex(code: "FF333E48")
+          ..fontFamily = 'Lato';
+        canvas.drawText(graphicsFactory.createTextElement(pointElement.point.y.toString())..textStyle = latoBlack14, (rectangleLeft + 10).floor(), (rectangleTop + 30).floor());
 
         paintedVerticalLinePositions.add(roundedX);
       }
