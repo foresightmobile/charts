@@ -18,6 +18,8 @@ import 'dart:math' show max, min, Point, Rectangle;
 
 import 'package:meta/meta.dart';
 
+import '../../../../common.dart';
+import '../../../../common.dart';
 import '../../../common/color.dart' show Color;
 import '../../../common/graphics_factory.dart' show GraphicsFactory;
 import '../../../common/style/style_factory.dart' show StyleFactory;
@@ -474,11 +476,10 @@ class _LinePointLayoutView<D> extends LayoutView {
         canvas.drawLine(
             points: [
               Point<num>(pointElement.point.x, topBound),
-              Point<num>(
-                  pointElement.point.x, drawBounds.top + drawBounds.height),
+              Point<num>(pointElement.point.x, drawBounds.top + drawBounds.height),
             ],
             stroke: StyleFactory.style.linePointHighlighterColor,
-            strokeWidthPx: 10.0,
+            strokeWidthPx: 1.0,
             dashPattern: dashPattern);
 
         if (showVerticalFollowLine ==
@@ -512,7 +513,139 @@ class _LinePointLayoutView<D> extends LayoutView {
           fillColor: pointElement.fillColor,
           strokeColor: pointElement.color,
           strokeWidthPx: pointElement.strokeWidthPx);
+
+      canvas.drawRRect(
+          bounds,
+        radius: 5,
+        roundBottomLeft: true,
+        roundBottomRight: true,
+        roundTopLeft: true,
+        roundTopRight: true,
+      );
+      canvas.drawText(graphicsFactory.createTextElement("Hello"), (pointElement.point.x - pointElement.radiusPx).floor(), (pointElement.point.y - pointElement.radiusPx).floor());
     }
+  }
+
+  void drawBubbleWithText(ChartCanvas canvas) {
+
+
+
+//
+//    double infoWidth = 0; //base value, modified based on the label text
+//    double infoHeight = 60;
+//
+//    //bubble indicator padding
+//    final horizontalPadding = 28.0;
+//
+//    double offsetInfo = 42 + ((_currentCustomValues.length - 1.0) * 10.0);
+//    final centerForCircle = Offset(verticalX, height - yValue);
+//    final center = config.verticalIndicatorFixedPosition
+//        ? Offset(verticalX, offsetInfo)
+//        : centerForCircle;
+//
+//    //calculate the total lenght of the lines
+//    List<TextSpan> textValues = [];
+//
+//    for (_CustomValue customValue in _currentCustomValues.reversed.toList()) {
+//      textValues.add(
+//        TextSpan(
+//          text: config.bubbleIndicatorValueFormat != null
+//              ? "${config.bubbleIndicatorValueFormat.format(double.parse(customValue.value))} "
+//              : "${customValue.value} ",
+//          style: config.bubbleIndicatorValueStyle,//.copyWith(fontSize: 11),
+//          children: [
+//            TextSpan(
+//              text: "${customValue.label}\n",
+//              style: config.bubbleIndicatorLabelStyle,//.copyWith(fontSize: 9),
+//            ),
+//          ],
+//        ),
+//      );
+//      space += 12.5;
+//    }
+//
+//    //Calculate Text size
+//    TextPainter textPainter = TextPainter(
+//      textAlign: TextAlign.center,
+//      text: TextSpan(
+//        text: _getInfoTitleText(),
+//        style: config.bubbleIndicatorTitleStyle,//.copyWith(fontSize: 9.5),
+//        children: textValues,
+//      ),
+//      textDirection: TextDirection.ltr,
+//    );
+//    textPainter.layout();
+//
+//    infoWidth =
+//        textPainter.width + radiusDotIndicatorItems * 2 + horizontalPadding;
+//
+//    ///Draw Bubble Indicator Info
+//
+//    /// Draw shadow bubble info
+//    if (animation.isCompleted) {
+//      Path path = Path();
+//      path.moveTo(center.dx - infoWidth / 2 + 4,
+//          center.dy - offsetInfo + infoHeight / 1.8);
+//      path.lineTo(center.dx + infoWidth / 2 + 4,
+//          center.dy - offsetInfo + infoHeight / 1.8);
+//      path.lineTo(center.dx + infoWidth / 2 + 4,
+//          center.dy - offsetInfo - infoHeight / 3);
+//      //path.close();
+//      // canvas.drawShadow(path, Colors.black, 20.0, false);
+//      canvas.drawPath(path, paintControlPoints..color = Colors.black12);
+//    }
+//
+//    final paintInfo = Paint()
+//      ..color = config.bubbleIndicatorColor
+//      ..style = PaintingStyle.fill;
+//
+//    //Draw Bubble info
+//    canvas.drawRRect(
+//      RRect.fromRectAndRadius(
+//        _fromCenter(
+//          center: Offset(
+//            center.dx,
+//            (center.dy - offsetInfo * animation.value),
+//          ),
+//          width: infoWidth,
+//          height: infoHeight,
+//        ),
+//        Radius.circular(5),
+//      ),
+//    );
+//
+//    //Draw triangle Bubble
+//    final double triangleSize = 6;
+//
+//    Path pathArrow = Path();
+//
+//    pathArrow.moveTo(center.dx - triangleSize,
+//        center.dy - offsetInfo * animation.value + infoHeight / 2.1);
+//    pathArrow.lineTo(
+//        center.dx,
+//        center.dy -
+//            offsetInfo * animation.value +
+//            infoHeight / 2.1 +
+//            triangleSize * 1.5);
+//    pathArrow.lineTo(center.dx + triangleSize,
+//        center.dy - offsetInfo * animation.value + infoHeight / 2.1);
+//    pathArrow.close();
+//    canvas.drawPath(
+//      pathArrow,
+//      paintInfo,
+//    );
+//    //End triangle
+//
+//    if (animation.isCompleted) {
+//      //Paint Text , title and description
+//      textPainter.paint(
+//        canvas,
+//        Offset(
+//          center.dx - textPainter.width / 2,
+//          center.dy - offsetInfo - infoHeight / 2.5,
+//        ),
+//      );
+//    }
   }
 
   @override
