@@ -514,16 +514,18 @@ class _LinePointLayoutView<D> extends LayoutView {
           strokeColor: pointElement.color,
           strokeWidthPx: pointElement.strokeWidthPx);
 
-      canvas.drawRRect(
-          bounds,
-        radius: 5,
-        roundBottomLeft: true,
-        roundBottomRight: true,
-        roundTopLeft: true,
-        roundTopRight: true,
-      );
-      canvas.drawText(graphicsFactory.createTextElement("Hello"), (pointElement.point.x - pointElement.radiusPx).floor(), (pointElement.point.y - pointElement.radiusPx).floor());
+//      canvas.drawRRect(
+//          bounds,
+//        radius: 5,
+//        roundBottomLeft: true,
+//        roundBottomRight: true,
+//        roundTopLeft: true,
+//        roundTopRight: true,
+//      );
+
     }
+    var textStyle = graphicsFactory.createTextPaint()..fontSize = 50;
+    canvas.drawText(graphicsFactory.createTextElement("Hello")..textStyle = textStyle, 10, 10);
   }
 
   void drawBubbleWithText(ChartCanvas canvas) {
