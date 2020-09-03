@@ -661,12 +661,12 @@ class _SliderLayoutView<D> extends LayoutView {
           Point<num>(sliderElement.domainCenterPoint.x, _drawAreaBounds.bottom),
         ],
         stroke: sliderElement.stroke,
-        strokeWidthPx: 10);//sliderElement.strokeWidthPx);
+        strokeWidthPx: sliderElement.strokeWidthPx);
 
     _handleRenderer.paint(canvas, sliderElement.buttonBounds,
-        fillColor: Color.black,//sliderElement.fill,
+        fillColor: sliderElement.fill,
         strokeColor: sliderElement.stroke,
-        strokeWidthPx: 20);//sliderElement.strokeWidthPx);
+        strokeWidthPx: sliderElement.strokeWidthPx);
   }
 
   @override

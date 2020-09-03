@@ -478,7 +478,7 @@ class _LinePointLayoutView<D> extends LayoutView {
                   pointElement.point.x, drawBounds.top + drawBounds.height),
             ],
             stroke: StyleFactory.style.linePointHighlighterColor,
-            strokeWidthPx: 1.0,
+            strokeWidthPx: 10.0,
             dashPattern: dashPattern);
 
         if (showVerticalFollowLine ==
