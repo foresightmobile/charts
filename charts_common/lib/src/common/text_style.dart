@@ -14,6 +14,7 @@
 // limitations under the License.
 
 import 'paint_style.dart' show PaintStyle;
+import 'dart:ui' show FontWeight;
 
 /// Paint properties of a text.
 abstract class TextStyle extends PaintStyle {
@@ -22,6 +23,9 @@ abstract class TextStyle extends PaintStyle {
 
   String get fontFamily;
   set fontFamily(String fontFamily);
+
+  FontWeight get fontWeight;
+  set fontWeight(FontWeight fontWeight);
 
   double get lineHeight;
   set lineHeight(double value);

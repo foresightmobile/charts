@@ -130,6 +130,7 @@ abstract class BaseTickDrawStrategy<D> implements TickDrawStrategy<D> {
       ..color = labelStyleSpec?.color ?? StyleFactory.style.tickColor
       ..fontFamily = labelStyleSpec?.fontFamily
       ..fontSize = labelStyleSpec?.fontSize ?? 12
+      ..fontWeight = labelStyleSpec?.fontWeight
       ..lineHeight = labelStyleSpec?.lineHeight);
 
     axisLineStyle = graphicsFactory.createLinePaint()
@@ -157,6 +158,7 @@ abstract class BaseTickDrawStrategy<D> implements TickDrawStrategy<D> {
         tick.textElement.textStyle.color ??= labelStyle.color;
         tick.textElement.textStyle.fontFamily ??= labelStyle.fontFamily;
         tick.textElement.textStyle.fontSize ??= labelStyle.fontSize;
+        tick.textElement.textStyle.fontWeight ??= labelStyle.fontWeight;
         tick.textElement.textStyle.lineHeight ??= labelStyle.lineHeight;
       }
     }

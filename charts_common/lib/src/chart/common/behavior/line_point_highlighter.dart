@@ -15,6 +15,7 @@
 
 import 'dart:collection' show LinkedHashMap;
 import 'dart:math' show max, min, Point, Rectangle;
+import 'dart:ui';
 
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
@@ -524,6 +525,7 @@ class _LinePointLayoutView<D> extends LayoutView {
         var latoBlack14 = graphicsFactory.createTextPaint()
           ..fontSize = 14
           ..color = Color.fromHex(code: "#333E48")
+          ..fontWeight = FontWeight.w300
           ..fontFamily = 'Lato';
         canvas.drawText(graphicsFactory.createTextElement(pointElement.point.datum?.value?.currentValue.toString() ?? "0")..textStyle = latoBlack14, (rectangleLeft + 10).floor(), (rectangleTop + 30).floor());
 

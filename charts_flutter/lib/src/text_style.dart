@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:ui' show hashValues;
+import 'dart:ui' show hashValues, FontWeight;
 import 'package:charts_common/common.dart' as common show Color, TextStyle;
 
 class TextStyle implements common.TextStyle {
@@ -21,6 +21,7 @@ class TextStyle implements common.TextStyle {
   String fontFamily;
   common.Color color;
   double lineHeight;
+  FontWeight fontWeight;
 
   @override
   bool operator ==(Object other) =>
@@ -28,8 +29,9 @@ class TextStyle implements common.TextStyle {
       fontSize == other.fontSize &&
       fontFamily == other.fontFamily &&
       color == other.color &&
-      lineHeight == other.lineHeight;
+      lineHeight == other.lineHeight &&
+      fontWeight == other.fontWeight;
 
   @override
-  int get hashCode => hashValues(fontSize, fontFamily, color, lineHeight);
+  int get hashCode => hashValues(fontSize, fontFamily, color, lineHeight, fontWeight);
 }
