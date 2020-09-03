@@ -522,12 +522,28 @@ class _LinePointLayoutView<D> extends LayoutView {
           ..fontFamily = 'Lato';
         canvas.drawText(graphicsFactory.createTextElement(DateFormat(DateFormat.HOUR24_MINUTE_SECOND).format(pointElement.point.domain as DateTime))..textStyle = latoBlack12, (rectangleLeft + 10).floor(), (rectangleTop + 10).floor());
 
-        var latoBlack14 = graphicsFactory.createTextPaint()
+        var latoBlackBold20 = graphicsFactory.createTextPaint()
+          ..fontSize = 20
+          ..color = Color.fromHex(code: "#333E48")
+          ..fontWeight = FontWeight.w700
+          ..fontFamily = 'Lato';
+
+        var valueTextElement = graphicsFactory.createTextElement((pointElement.point.datum?.value?.currentValue.toString() ?? "0"))
+          ..textStyle = latoBlackBold20;
+
+        canvas.drawText(valueTextElement, (rectangleLeft + 10).floor(), (rectangleTop + 30).floor());
+
+        var latoBlackRegular14 = graphicsFactory.createTextPaint()
           ..fontSize = 14
           ..color = Color.fromHex(code: "#333E48")
-          ..fontWeight = FontWeight.w300
           ..fontFamily = 'Lato';
-        canvas.drawText(graphicsFactory.createTextElement(pointElement.point.datum?.value?.currentValue.toString() ?? "0")..textStyle = latoBlack14, (rectangleLeft + 10).floor(), (rectangleTop + 30).floor());
+
+        var valueTypeTextElement = graphicsFactory.createTextElement("people")
+          ..textStyle = latoBlackRegular14;
+
+        canvas.drawText(valueTypeTextElement, (rectangleLeft + 10+ valueTextElement.measurement.horizontalSliceWidth).floor(), (rectangleTop + 30).floor());
+
+
 
         paintedVerticalLinePositions.add(roundedX);
       }
