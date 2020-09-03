@@ -517,15 +517,15 @@ class _LinePointLayoutView<D> extends LayoutView {
 
         var latoBlack12 = graphicsFactory.createTextPaint()
           ..fontSize = 12
-          ..color = Color.fromHex(code: "FF333E48")
+          ..color = Color.fromHex(code: "333E48")
           ..fontFamily = 'Lato';
         canvas.drawText(graphicsFactory.createTextElement(DateFormat(DateFormat.HOUR24_MINUTE_SECOND).format(pointElement.point.domain as DateTime))..textStyle = latoBlack12, (rectangleLeft + 10).floor(), (rectangleTop + 10).floor());
 
         var latoBlack14 = graphicsFactory.createTextPaint()
           ..fontSize = 14
-          ..color = Color.fromHex(code: "FF333E48")
+          ..color = Color.fromHex(code: "333E48")
           ..fontFamily = 'Lato';
-        canvas.drawText(graphicsFactory.createTextElement(pointElement.point.y.toString())..textStyle = latoBlack14, (rectangleLeft + 10).floor(), (rectangleTop + 30).floor());
+        canvas.drawText(graphicsFactory.createTextElement(pointElement.point.datum?.value?.currentValue.toString() ?? "0")..textStyle = latoBlack14, (rectangleLeft + 10).floor(), (rectangleTop + 30).floor());
 
         paintedVerticalLinePositions.add(roundedX);
       }
