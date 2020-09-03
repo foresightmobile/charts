@@ -24,6 +24,8 @@ import '../../../../common.dart';
 import '../../../common/color.dart' show Color;
 import '../../../common/graphics_factory.dart' show GraphicsFactory;
 import '../../../common/material_palette.dart';
+import '../../../common/material_palette.dart';
+import '../../../common/material_palette.dart';
 import '../../../common/style/style_factory.dart' show StyleFactory;
 import '../../../common/symbol_renderer.dart'
     show CircleSymbolRenderer, SymbolRenderer;
@@ -502,6 +504,8 @@ class _LinePointLayoutView<D> extends LayoutView {
           ),
           radius: 5,
           patternColor: MaterialPalette.white,
+          fill: MaterialPalette.white,
+          stroke: MaterialPalette.white,
         );
 
         var textStyle = graphicsFactory.createTextPaint()
