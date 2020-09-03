@@ -115,4 +115,8 @@ class Color {
     assert(opacity >= 0.0 && opacity <= 1.0);
     return withAlpha((255.0 * opacity).round());
   }
+
+  Color withAlpha(int a) {
+    return Color(r: this.r, g: this.g, b: this.b, a: a);
+  }
 }
