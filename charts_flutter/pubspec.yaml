@@ -16,8 +16,10 @@ dependencies:
   # charts_common: 0.9.0
   charts_common:
     git:
-      url: https://github.com/google/charts.git
+      url: https://github.com/foresightmobile/charts.git
       path: charts_common
+      ref: arm-changes
+#  charts_common:
 #    path: ../charts_common/
   collection: ^1.14.5
   flutter:
